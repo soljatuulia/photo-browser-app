@@ -1,11 +1,28 @@
-import { Welcome } from '../components/Welcome/Welcome';
-import { ColorSchemeToggle } from '../components/ColorSchemeToggle/ColorSchemeToggle';
+import { GetStaticProps } from 'next';
+import { getPhotos } from '../api/photos';
+import { PhotoGrid } from '../components/PhotoGrid/PhotoGrid';
+import { Photo } from '../types/photo';
 
-export default function HomePage() {
+interface PhotosIndexProps {
+  photos: Photo[];
+}
+
+function PhotosIndexPage({ photos }: PhotosIndexProps) {
   return (
-    <>
-      <Welcome />
-      <ColorSchemeToggle />
-    </>
+    <div>
+      <h1>Photos</h1>
+      <PhotoGrid initialPhotos={photos} />
+    </div>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const { photos }: { photos: Photo[] } = await getPhotos();
+  return {
+    props: {
+      photos,
+    },
+  };
+};
+
+export default PhotosIndexPage;
