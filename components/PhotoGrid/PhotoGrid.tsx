@@ -24,9 +24,9 @@ export function PhotoGrid({ initialPhotos, albumId, album }: PhotoGridProps) {
   );
 
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const isTablet = useMediaQuery('(min-width: 769px) and (max-width: 1024px)');
+  const isTinyScreen = useMediaQuery('(max-width: 350px)');
 
-  const cols = isMobile ? 1 : isTablet ? 2 : 3;
+  const cols = isTinyScreen ? 1 : isMobile ? 2 : 3;
 
   useEffect(() => {
     async function fetchPhotos() {

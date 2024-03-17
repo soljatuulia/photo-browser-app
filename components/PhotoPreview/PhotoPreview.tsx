@@ -19,9 +19,9 @@ export default function Album({ photos, album, isPhotoPage = false }: AlbumProps
   }
 
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const isTablet = useMediaQuery('(min-width: 769px) and (max-width: 1024px)');
+  const isTinyScreen = useMediaQuery('(max-width: 365px)');
 
-  const cols = isMobile ? 1 : isTablet ? 2 : 3;
+  const cols = isTinyScreen ? 1 : isMobile ? 2 : 3;
 
   return (
     <Stack maw={500}>
