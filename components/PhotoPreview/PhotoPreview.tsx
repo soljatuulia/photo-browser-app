@@ -13,9 +13,9 @@ interface AlbumProps {
   isPhotoPage?: boolean;
 }
 
-export default function Album({ photos, album, isPhotoPage = false }: AlbumProps) {
+export default function PhotoPreview({ photos, album, isPhotoPage = false }: AlbumProps) {
   if (!album) {
-    return <Text>Sorry! No album data to display.</Text>;
+    return <Text>Sorry! No album info to display.</Text>;
   }
 
   const isMobile = useMediaQuery('(max-width: 768px)');

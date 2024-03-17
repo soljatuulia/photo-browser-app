@@ -1,9 +1,9 @@
 import { screen } from '@testing-library/react';
 import { render } from '@/test-utils';
-import { PhotoGrid } from './PhotoGrid';
+import SinglePhoto from './SinglePhoto';
 import { Photo } from '@/types/photo';
 
-describe('PhotoGrid', () => {
+describe('SinglePhoto', () => {
   const mockPhotos: Photo[] = [
     {
       id: 1,
@@ -112,15 +112,54 @@ describe('PhotoGrid', () => {
     },
   ];
 
-  test('renders the correct number of photos', () => {
-    render(<PhotoGrid initialPhotos={mockPhotos} />);
-    const images = screen.getAllByRole('img');
-    expect(images.length).toBe(mockPhotos.length);
+  const mockPhoto = {
+    albumId: 1,
+    id: 1,
+    title: 'Test Photo',
+    url: 'http://example.com/test.jpg',
+    thumbnailUrl: 'http://example.com/test_thumb.jpg',
+  };
+
+  const mockPhotoWithouTitle = {
+    albumId: 1,
+    id: 1,
+    title: '',
+    url: 'http://example.com/test.jpg',
+    thumbnailUrl: 'http://example.com/test_thumb.jpg',
+  };
+
+  const mockUser = {
+    id: 1,
+  };
+
+  const mockAlbum = {
+    userId: 1,
+    id: 1,
+    title: 'Test Album',
+  };
+
+  test('renders photo title', () => {
+    render(<SinglePhoto photo={mockPhoto} user={mockUser} albumPhotos={[]} album={mockAlbum} />);
+    const titleElement = screen.getByText(/Test Photo/i);
+    expect(titleElement).toBeInTheDocument();
   });
 
-  test('renders "Sorry, no photos found!" when no photos are provided', () => {
-    render(<PhotoGrid initialPhotos={[]} />);
-    const messageElement = screen.getByText(/Sorry, no photos found!/i);
-    expect(messageElement).toBeInTheDocument();
+  test('renders link to user', () => {
+    render(<SinglePhoto photo={mockPhoto} user={mockUser} albumPhotos={[]} album={mockAlbum} />);
+    const linkElement = screen.getByText(/From user 1/i);
+    expect(linkElement).toBeInTheDocument();
+  });
+
+  test('renders "Untitled" when photo has no title', () => {
+    render(
+      <SinglePhoto
+        photo={mockPhotoWithouTitle}
+        user={mockUser}
+        albumPhotos={mockPhotos}
+        album={mockAlbum}
+      />
+    );
+    const titleElement = screen.getByText(/Untitled/i);
+    expect(titleElement).toBeInTheDocument();
   });
 });

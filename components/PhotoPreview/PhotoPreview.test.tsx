@@ -1,9 +1,9 @@
 import { screen } from '@testing-library/react';
 import { render } from '@/test-utils';
-import { PhotoGrid } from './PhotoGrid';
+import PhotoPreview from './PhotoPreview';
 import { Photo } from '@/types/photo';
 
-describe('PhotoGrid', () => {
+describe('PhotoPreview', () => {
   const mockPhotos: Photo[] = [
     {
       id: 1,
@@ -112,15 +112,27 @@ describe('PhotoGrid', () => {
     },
   ];
 
-  test('renders the correct number of photos', () => {
-    render(<PhotoGrid initialPhotos={mockPhotos} />);
-    const images = screen.getAllByRole('img');
-    expect(images.length).toBe(mockPhotos.length);
+  const mockAlbum = {
+    userId: 1,
+    id: 1,
+    title: 'Test Album',
+  };
+
+  test('renders album title', () => {
+    render(<PhotoPreview photos={mockPhotos} album={mockAlbum} />);
+    const titleElement = screen.getByText(/Test Album/i);
+    expect(titleElement).toBeInTheDocument();
   });
 
-  test('renders "Sorry, no photos found!" when no photos are provided', () => {
-    render(<PhotoGrid initialPhotos={[]} />);
-    const messageElement = screen.getByText(/Sorry, no photos found!/i);
+  test('renders link to view more photos', () => {
+    render(<PhotoPreview photos={mockPhotos} album={mockAlbum} />);
+    const linkElement = screen.getByText(/View more.../i);
+    expect(linkElement).toBeInTheDocument();
+  });
+
+  test('renders "Sorry, no photos found." when no photos are provided', () => {
+    render(<PhotoPreview photos={[]} album={mockAlbum} />);
+    const messageElement = screen.getByText(/Sorry, no photos found./i);
     expect(messageElement).toBeInTheDocument();
   });
 });
