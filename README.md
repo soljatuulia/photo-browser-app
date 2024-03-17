@@ -1,4 +1,4 @@
-# :cmaera: Photo Browser App
+# :camera: Photo Browser App
 
 Photo Browser is a simple web app for, that's right, browsing photos. It fetches JSON formatted data about the photos and the related users and albums from the backend at [http://jsonplaceholder.typicode.com/](http://jsonplaceholder.typicode.com/).
 
