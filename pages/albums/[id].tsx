@@ -1,8 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { getAlbums, getPhotosByAlbumId } from '../../api/photos';
-import Album from '../../components/PhotoPreview/PhotoPreview';
-import { Photo } from '@/types/photo';
 import { useRouter } from 'next/router';
+import { getAlbums, getPhotosByAlbumId } from '../../api/photos';
+import { Photo } from '@/types/photo';
 import { PhotoGrid } from '@/components/PhotoGrid/PhotoGrid';
 
 export default function AlbumPage({
@@ -36,10 +35,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const photos = await getPhotosByAlbumId(id);
 
   // Fetch all albums
-  const albums = await getAlbums();
+  const allAlbums = await getAlbums();
 
   // Find the album with the matching ID
-  const album = albums.find((album: { id: number }) => album.id === parseInt(id));
+  const album = allAlbums.find((albumItem: { id: number }) => albumItem.id === parseInt(id, 10));
 
   // If the album is not found, throw an error
   if (!album) {

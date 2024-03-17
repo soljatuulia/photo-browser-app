@@ -1,8 +1,8 @@
-import { Group, SimpleGrid, Stack } from '@mantine/core';
-import { Photo } from '../../types/photo';
-import { useRouter } from 'next/router';
-import { useMediaQuery } from '@mantine/hooks';
 import Link from 'next/link';
+import Image from 'next/image';
+import { SimpleGrid, Stack } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
+import { Photo } from '../../types/photo';
 import { Album } from '@/types/album';
 
 interface AlbumProps {
@@ -23,7 +23,7 @@ export default function Album({ photos, album }: AlbumProps) {
         {photos.map((photo) => (
           <div key={photo.id}>
             <Link href={`/photos/${photo.id}`}>
-              <img src={photo.thumbnailUrl} alt={photo.title} />
+              <Image src={photo.thumbnailUrl} alt={photo.title} />
             </Link>
           </div>
         ))}

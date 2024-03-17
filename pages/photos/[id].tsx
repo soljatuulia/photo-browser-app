@@ -4,7 +4,7 @@ import { Photo } from '../../types/photo';
 import { User } from '../../types/user';
 import SinglePhoto from '../../components/SinglePhoto/SinglePhoto';
 
-export default function PhotoPage({ photo, user }: { photo: Photo, user: User }) {
+export default function PhotoPage({ photo, user }: { photo: Photo; user: User }) {
   return (
     <div>
       <SinglePhoto photo={photo} user={user} />

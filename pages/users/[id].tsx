@@ -8,8 +8,6 @@ import {
 } from '../../api/photos';
 import { Album as AlbumType } from '@/types/album';
 import PhotoPreview from '../../components/PhotoPreview/PhotoPreview';
-import Link from 'next/link';
-import { Group } from '@mantine/core';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // Fetch all albums
