@@ -1,10 +1,24 @@
-@import url(https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap);
+@import "https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap";
 
 body {
-  display: flex;
-  justify-content: center;
   padding: 20px;
   min-height: 100vh;
   box-sizing: border-box;
   font-family: Quicksand, sans-serif;
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: hotpink;
 }

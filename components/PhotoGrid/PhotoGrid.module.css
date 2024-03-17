@@ -1,4 +1,7 @@
 .container {
-    max-width: 600px;
-    margin: 0 auto;
-  }
+  margin-top: 2rem;
+}
+
+.title {
+	text-transform: capitalize;
+}

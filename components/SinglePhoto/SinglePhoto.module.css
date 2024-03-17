@@ -1,16 +1,26 @@
 .container {
   width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
+  margin-top: 2rem;
 }
 
-.img-responsive {
+.imgResponsive {
   width: 100%;
   height: auto;
+	margin-bottom: 2rem;
 }
 
 @media (max-width: 768px) {
-  .img-responsive {
+  .imgResponsive {
     max-width: 100%;
   }
+}
+
+.title {
+	text-transform: capitalize;
+  max-width: 600px;
+}
+
+.linksContainer {
+  border: 1px solid #000; /* Change the color as needed */
+  padding: 1rem;
 }
