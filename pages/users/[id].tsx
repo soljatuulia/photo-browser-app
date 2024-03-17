@@ -7,7 +7,23 @@ import {
   getTotalPhotos,
 } from '../../api/photos';
 import { Album as AlbumType } from '@/types/album';
-import PhotoPreview from '../../components/PhotoPreview/PhotoPreview';
+import UserPage from '@/components/UserPage/UserPage';
+
+export default function User({
+  albums,
+  totalAlbums,
+  totalPhotos,
+}: {
+  albums: AlbumType[];
+  totalAlbums: number;
+  totalPhotos: number;
+}) {
+  return (
+    <div>
+      <UserPage albums={albums} totalAlbums={totalAlbums} totalPhotos={totalPhotos} />
+    </div>
+  );
+}
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // Fetch all albums
@@ -41,25 +57,3 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return { props: { albums: albumsWithPhotos, totalAlbums, totalPhotos }, revalidate: 1 };
 };
-
-export default function User({
-  albums,
-  totalAlbums,
-  totalPhotos,
-}: {
-  albums: AlbumType[];
-  totalAlbums: number;
-  totalPhotos: number;
-}) {
-  return (
-    <div>
-      <p>Total Albums: {totalAlbums}</p>
-      <p>Total Photos: {totalPhotos}</p>
-      {albums.map((album) => (
-        <div key={album.id}>
-          <PhotoPreview photos={album.photos || []} album={album} />
-        </div>
-      ))}
-    </div>
-  );
-}
