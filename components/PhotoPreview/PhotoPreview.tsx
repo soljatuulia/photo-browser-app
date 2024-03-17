@@ -10,9 +10,10 @@ import classes from './PhotoPreview.module.css';
 interface AlbumProps {
   photos: Photo[];
   album: Album;
+  isPhotoPage?: boolean;
 }
 
-export default function Album({ photos, album }: AlbumProps) {
+export default function Album({ photos, album, isPhotoPage = false }: AlbumProps) {
   if (!album) {
     return <Text>Sorry! No album data to display.</Text>;
   }
@@ -25,11 +26,12 @@ export default function Album({ photos, album }: AlbumProps) {
   return (
     <Stack maw={500}>
       <Title order={3} lineClamp={1} className={classes.title}>
+        {isPhotoPage ? 'More from the album ' : ''}
         {album.title || 'Untitled'}
       </Title>
       {photos.length > 0 ? (
         <>
-          <SimpleGrid cols={cols} spacing={15} className={classes.grid}>
+          <SimpleGrid cols={cols} spacing={15}>
             {photos.map((photo) =>
               photo && photo.id && photo.thumbnailUrl && photo.title ? (
                 <div key={photo.id}>

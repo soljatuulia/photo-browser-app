@@ -19,8 +19,3 @@
 	text-transform: capitalize;
   max-width: 600px;
 }
-
-.linksContainer {
-  border: 1px solid #000; /* Change the color as needed */
-  padding: 1rem;
-}

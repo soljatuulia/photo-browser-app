@@ -19,11 +19,14 @@ export default function SinglePhoto({ photo, user, albumPhotos, album }: SingleP
     return <Text>Sorry! No photo found.</Text>;
   }
 
+  const otherPhotos = albumPhotos.filter((albumPhoto) => albumPhoto.id !== photo.id);
+
   return (
     <Stack className={classes.container} gap="xs">
       <Title className={classes.title} order={2}>
         {photo.title || 'Untitled'}
       </Title>
+      {user && <Link href={`/users/${user.id}`}>From user {user.id}</Link>}
       <Group align="start">
         <Image
           src={photo.url}
@@ -32,12 +35,10 @@ export default function SinglePhoto({ photo, user, albumPhotos, album }: SingleP
           width={600}
           height={600}
         />
-        <Stack className={classes.linksContainer}>
-          <Link href={`/albums/${photo.albumId}`}>View album</Link>
-          {user && <Link href={`/users/${user.id}`}>View user</Link>}
-        </Stack>
       </Group>
-      {albumPhotos.length > 0 && <PhotoPreview photos={albumPhotos} album={album} />}
+      {otherPhotos.length > 0 && (
+        <PhotoPreview photos={otherPhotos} album={album} isPhotoPage={true} />
+      )}
     </Stack>
   );
 }
