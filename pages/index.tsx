@@ -10,7 +10,7 @@ interface PhotosIndexProps {
 function PhotosIndexPage({ photos }: PhotosIndexProps) {
   return (
     <div>
-      <h1>Photos</h1>
+      <h1>Photo Browser for Futurice</h1>
       <PhotoGrid initialPhotos={photos} />
     </div>
   );

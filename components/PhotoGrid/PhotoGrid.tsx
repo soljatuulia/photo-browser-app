@@ -1,19 +1,23 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Button, Group, SimpleGrid, Stack } from '@mantine/core';
+import { Group, Pagination, SimpleGrid, Stack } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { getPhotos } from '../../api/photos';
+import { getPhotos, getPhotosByAlbumId } from '../../api/photos';
 import { Photo } from '../../types/photo';
+
+import classes from './PhotoGrid.module.css';
 
 interface PhotoGridProps {
   initialPhotos: Photo[];
+	albumId?: string;
+	album?: { title: string };
 }
 
-export function PhotoGrid({ initialPhotos }: PhotoGridProps) {
+export function PhotoGrid({ initialPhotos, albumId, album }: PhotoGridProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const initialTotalPages = Math.ceil(initialPhotos.length / 12);
   const [totalPages, setTotalPages] = useState(initialTotalPages);
-  const [displayedPhotos, setDisplayedPhotos] = useState(initialPhotos);
+  const [displayedPhotos, setDisplayedPhotos] = useState(Array.isArray(initialPhotos) ? initialPhotos : []);
 
   const isMobile = useMediaQuery('(max-width: 768px)');
   const isTablet = useMediaQuery('(min-width: 769px) and (max-width: 1024px)');
@@ -22,24 +26,26 @@ export function PhotoGrid({ initialPhotos }: PhotoGridProps) {
 
   useEffect(() => {
     async function fetchPhotos() {
-      const { photos, totalPages } = await getPhotos(currentPage);
+      let photos, totalPages;
+      if (albumId) {
+        const result = await getPhotosByAlbumId(albumId, currentPage);
+        photos = result.photos;
+        totalPages = result.totalPages;
+      } else {
+        const result = await getPhotos(currentPage);
+        photos = result.photos;
+        totalPages = result.totalPages;
+      }
       setDisplayedPhotos(photos);
       setTotalPages(totalPages);
     }
     fetchPhotos();
-  }, [currentPage]);
-
-  const handlePrevPage = () => {
-    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
-  };
-
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
-  };
+  }, [currentPage, albumId]);
 
   return (
     <div>
-      <Stack gap="lg">
+      <Stack gap="lg" maw={500}>
+				{album && <h2>{album.title}</h2>}
         <SimpleGrid cols={cols} spacing={15}>
           {displayedPhotos.map((photo) => (
             <div key={photo.id}>
@@ -49,15 +55,16 @@ export function PhotoGrid({ initialPhotos }: PhotoGridProps) {
             </div>
           ))}
         </SimpleGrid>
-        <Group justify="center">
-          <Button disabled={currentPage === 1} onClick={handlePrevPage}>
-            Previous
-          </Button>
-          <span>{`Page ${currentPage} of ${totalPages}`}</span>
-          <Button disabled={currentPage === totalPages} onClick={handleNextPage}>
-            Next
-          </Button>
-        </Group>
+				<Group justify="center">
+        <Pagination
+          value={currentPage}
+          total={totalPages}
+          onChange={setCurrentPage}
+          size="md"
+          siblings={1}
+          boundaries={1}
+        />
+      </Group>
       </Stack>
     </div>
   );
