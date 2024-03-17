@@ -55,5 +55,5 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const totalAlbums = await getTotalAlbums(Number(id));
   const totalPhotos = await getTotalPhotos(Number(id));
 
-  return { props: { albums: albumsWithPhotos, totalAlbums, totalPhotos }, revalidate: 1 };
+  return { props: { albums: albumsWithPhotos, totalAlbums, totalPhotos } };
 };

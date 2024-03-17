@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { SimpleGrid, Stack } from '@mantine/core';
+import { SimpleGrid, Stack, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { Photo } from '../../types/photo';
-import { Album } from '@/types/album';
+import type { Album } from '@/types/album';
+
+import classes from './PhotoPreview.module.css';
 
 interface AlbumProps {
   photos: Photo[];
@@ -18,8 +20,10 @@ export default function Album({ photos, album }: AlbumProps) {
 
   return (
     <Stack maw={500}>
-      <h2>{album.title}</h2>
-      <SimpleGrid cols={cols} spacing={15}>
+      <Title order={3} lineClamp={1} className={classes.title}>
+        {album.title}
+      </Title>
+      <SimpleGrid cols={cols} spacing={15} className={classes.grid}>
         {photos.map((photo) => (
           <div key={photo.id}>
             <Link href={`/photos/${photo.id}`}>
@@ -28,7 +32,9 @@ export default function Album({ photos, album }: AlbumProps) {
           </div>
         ))}
       </SimpleGrid>
-      <Link href={`/albums/${album.id}`}>View more...</Link>
+      <Link href={`/albums/${album.id}`} className={classes.more}>
+        View more...
+      </Link>
     </Stack>
   );
 }
