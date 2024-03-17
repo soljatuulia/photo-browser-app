@@ -16,7 +16,7 @@ interface SinglePhotoProps {
 
 export default function SinglePhoto({ photo, user, albumPhotos, album }: SinglePhotoProps) {
   if (!photo) {
-    return <Text>Sorry! We didn't find the photo.</Text>;
+    return <Text>Sorry! No photo found.</Text>;
   }
 
   return (

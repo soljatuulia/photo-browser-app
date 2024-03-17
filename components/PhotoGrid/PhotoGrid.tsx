@@ -33,9 +33,9 @@ export function PhotoGrid({ initialPhotos, albumId, album }: PhotoGridProps) {
       try {
         if (currentPage < 1 || currentPage > totalPages) {
           notifications.show({
-            title: `Oops!`,
+            title: 'Oops!',
             color: 'red',
-            message: `Invalid page number`,
+            message: 'Invalid page number',
           });
           return;
         }
@@ -55,7 +55,7 @@ export function PhotoGrid({ initialPhotos, albumId, album }: PhotoGridProps) {
         setTotalPages(pages);
       } catch (error) {
         notifications.show({
-          title: `Oops!`,
+          title: 'Oops!',
           color: 'red',
           message: (error as Error).message,
         });
@@ -106,7 +106,7 @@ export function PhotoGrid({ initialPhotos, albumId, album }: PhotoGridProps) {
             </Group>
           </>
         ) : (
-          <Text>Sorry, we didn't find any photos!</Text>
+          <Text>Sorry, no photos found!</Text>
         )}
       </Stack>
     </div>

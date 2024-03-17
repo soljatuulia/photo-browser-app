@@ -1,9 +1,9 @@
+import Link from 'next/link';
 import { Text, Title } from '@mantine/core';
 
 import classes from './Navbar.module.css';
-import Link from 'next/link';
 
-const Navbar = () => {
+export default function Navbar() {
   return (
     <header>
       <Title className={classes.title} order={1} ta="left">
@@ -20,6 +20,4 @@ const Navbar = () => {
       </Title>
     </header>
   );
-};
-
-export default Navbar;
+}
