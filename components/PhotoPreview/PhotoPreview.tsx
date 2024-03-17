@@ -23,7 +23,7 @@ export default function Album({ photos, album }: AlbumProps) {
         {photos.map((photo) => (
           <div key={photo.id}>
             <Link href={`/photos/${photo.id}`}>
-              <Image src={photo.thumbnailUrl} alt={photo.title} />
+              <Image src={photo.thumbnailUrl} alt={photo.title} width={150} height={150} />
             </Link>
           </div>
         ))}
