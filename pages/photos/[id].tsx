@@ -1,12 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import {
-  getPhotos,
-  getPhotoById,
-  getUserByPhotoId,
-  getPhotosByAlbumId,
-  getAlbumById,
-  getFirstPhotosFromAlbum,
-} from '../../api/photos';
+import { getPhotos, getPhotoById, getFirstPhotosFromAlbum } from '../../api/photos';
+import { getAlbumById } from '@/api/albums';
+import { getUserByPhotoId } from '@/api/users';
 import { Photo } from '../../types/photo';
 import { User } from '../../types/user';
 import SinglePhoto from '../../components/SinglePhoto/SinglePhoto';

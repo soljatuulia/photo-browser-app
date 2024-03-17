@@ -1,6 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import { getAlbums, getPhotosByAlbumId } from '../../api/photos';
+import { getPhotosByAlbumId } from '../../api/photos';
+import { getAlbums } from '@/api/albums';
 import { Photo } from '@/types/photo';
 import { PhotoGrid } from '@/components/PhotoGrid/PhotoGrid';
 
