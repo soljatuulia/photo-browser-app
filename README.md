@@ -1,28 +1,35 @@
-# Mantine Next.js template
+# :cmaera: Photo Browser App
 
-This is a template for [Next.js](https://nextjs.org/) pages router + [Mantine](https://mantine.dev/).
-If you want to use app router instead, see [next-app-template](https://github.com/mantinedev/next-app-template).
+Photo Browser is a simple web app for, that's right, browsing photos. It fetches JSON formatted data about the photos and the related users and albums from the backend at [http://jsonplaceholder.typicode.com/](http://jsonplaceholder.typicode.com/).
 
-## Features
+## :sparkles: Features
 
-This template comes with the following features:
+The application includes the following views:
 
-- [PostCSS](https://postcss.org/) with [mantine-postcss-preset](https://mantine.dev/styles/postcss-preset)
+- All Photos: Displays thumbnails of all photos with pagination.
+- Single Photo: Displays the title, full-sized photo, and links to view the album in which the photo is located and the user page which displays all albums from the user.
+- Album: Displays the album name and thumbnails of photos in the album with pagination.
+- User Info: Displays the number of albums, number of photos, and a preview of three photos from each album with the album name included.
+
+## :point_up: Technologies
+
 - [TypeScript](https://www.typescriptlang.org/)
-- [Storybook](https://storybook.js.org/)
+- [Next.js](https://nextjs.org/)
+- [Mantine](https://mantine.dev/) UI  component library
 - [Jest](https://jestjs.io/) setup with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
-- ESLint setup with [eslint-config-mantine](https://github.com/mantinedev/eslint-config-mantine)
+- ESLint
 
-## npm scripts
+## :computer: Prerequisites
 
-### Build and dev scripts
+The application works on the latest version of Chrome.
 
-- `dev` – start dev server
-- `build` – bundle application for production
-- `export` – exports static website to `out` folder
-- `analyze` – analyzes application bundle with [@next/bundle-analyzer](https://www.npmjs.com/package/@next/bundle-analyzer)
+## :runner: Running the Application
 
-### Testing scripts
+1. Open a terminal in the root directory of the project.
+2. First run `npm install`, then `npm start`.
+3. Access the application in your web browser at http://localhost:3000.
+
+## :mag: Testing scripts
 
 - `typecheck` – checks TypeScript types
 - `lint` – runs ESLint
@@ -31,8 +38,14 @@ This template comes with the following features:
 - `jest:watch` – starts jest watch
 - `test` – runs `jest`, `prettier:check`, `lint` and `typecheck` scripts
 
-### Other scripts
+## :dancers: Live Version
 
-- `storybook` – starts storybook dev server
-- `storybook:build` – build production storybook bundle to `storybook-static`
-- `prettier:write` – formats all files with Prettier
+A live version of the application can be found [here](tbd).
+
+## :crystal_ball: TODO
+
+Given more time, I would definitely improve the following:
+
+- Improve the UX/UI. I decided to not spend too much time on the design, and the project does not showcase my abilities with e.g. CSS
+- Enhance test coverage. As of now, all critical paths and edge cases are not thoroughly tested.
+- Improve error handling.
