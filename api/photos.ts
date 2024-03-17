@@ -34,7 +34,11 @@ export const getPhotosByAlbumId = async (id: string, page: number = 1, limit: nu
     `https://jsonplaceholder.typicode.com/albums/${id}/photos?_page=${page}&_limit=${limit}`
   );
   if (!response.ok) {
-    throw new Error('Failed to fetch photos');
+    if (response.status === 404) {
+      throw new Error(`Album with ID ${id} not found`);
+    } else {
+      throw new Error('Failed to fetch photos');
+    }
   }
   const totalCount = parseInt(response.headers.get('X-Total-Count') || '0', 10);
   const totalPages = Math.ceil(totalCount / limit);
@@ -61,8 +65,6 @@ export const getFirstPhotosFromAlbum = async (albumId: number, limit: number = 3
   const photos = await response.json();
   return photos;
 };
-
-// ...
 
 export const getTotalAlbums = async (userId: number) => {
   const response = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}/albums`);
@@ -116,4 +118,13 @@ export const getUserByPhotoId = async (photoId: number) => {
   const user = await userResponse.json();
 
   return user;
+};
+
+export const getAlbumById = async (id: number) => {
+  const response = await fetch(`https://jsonplaceholder.typicode.com/albums/${id}`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch album');
+  }
+  const album = await response.json();
+  return album;
 };
