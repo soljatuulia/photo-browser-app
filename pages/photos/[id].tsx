@@ -1,10 +1,15 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { getPhotos, getPhotoById } from '../../api/photos';
+import { getPhotos, getPhotoById, getUserByPhotoId } from '../../api/photos';
 import { Photo } from '../../types/photo';
+import { User } from '../../types/user';
 import SinglePhoto from '../../components/SinglePhoto/SinglePhoto';
 
-export default function PhotoPage({ photo }: { photo: Photo }) {
-  return <SinglePhoto photo={photo} />;
+export default function PhotoPage({ photo, user }: { photo: Photo, user: User }) {
+  return (
+    <div>
+      <SinglePhoto photo={photo} user={user} />
+    </div>
+  );
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -28,6 +33,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 
   const photo = await getPhotoById(Number(params.id));
+  const user = await getUserByPhotoId(Number(params.id));
 
-  return { props: { photo } };
+  return { props: { photo, user } };
 };
