@@ -1,4 +1,4 @@
-import { Group, Stack, Title } from '@mantine/core';
+import { Group, Stack, Title, Text } from '@mantine/core';
 import PhotoPreview from '../PhotoPreview/PhotoPreview';
 import UserInfo from '../UserInfo/UserInfo';
 import { Album } from '@/types/album';
@@ -12,6 +12,10 @@ interface UserPageProps {
 }
 
 export default function UserPage({ albums, totalPhotos, totalAlbums }: UserPageProps) {
+  if (!Array.isArray(albums)) {
+    return <Text>Sorry! No valid albums data to display.</Text>;
+  }
+
   return (
     <>
       <Title order={2} className={classes.title}>
