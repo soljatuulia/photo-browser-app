@@ -36,9 +36,7 @@ export default function SinglePhoto({ photo, user, albumPhotos, album }: SingleP
           height={600}
         />
       </Group>
-      {otherPhotos.length > 0 && (
-        <PhotoPreview photos={otherPhotos} album={album} isPhotoPage={true} />
-      )}
+      {otherPhotos.length > 0 && <PhotoPreview photos={otherPhotos} album={album} isPhotoPage />}
     </Stack>
   );
 }
