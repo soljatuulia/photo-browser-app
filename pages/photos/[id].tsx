@@ -1,13 +1,31 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { getPhotos, getPhotoById, getUserByPhotoId } from '../../api/photos';
+import {
+  getPhotos,
+  getPhotoById,
+  getUserByPhotoId,
+  getPhotosByAlbumId,
+  getAlbumById,
+	getFirstPhotosFromAlbum,
+} from '../../api/photos';
 import { Photo } from '../../types/photo';
 import { User } from '../../types/user';
 import SinglePhoto from '../../components/SinglePhoto/SinglePhoto';
+import { Album } from '@/types/album';
 
-export default function PhotoPage({ photo, user }: { photo: Photo; user: User }) {
+export default function PhotoPage({
+  photo,
+  user,
+  albumPhotos,
+  album,
+}: {
+  photo: Photo;
+  user: User;
+  albumPhotos: Photo[];
+  album: Album;
+}) {
   return (
     <div>
-      <SinglePhoto photo={photo} user={user} />
+      <SinglePhoto photo={photo} user={user} albumPhotos={albumPhotos} album={album} />
     </div>
   );
 }
@@ -34,6 +52,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const photo = await getPhotoById(Number(params.id));
   const user = await getUserByPhotoId(Number(params.id));
+  const albumPhotos = await getFirstPhotosFromAlbum(photo.albumId);
+  const album = await getAlbumById(photo.albumId);
 
-  return { props: { photo, user } };
+  return { props: { photo, user, albumPhotos, album } };
 };
