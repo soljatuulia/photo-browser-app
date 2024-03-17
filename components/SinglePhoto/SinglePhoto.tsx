@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Group, Stack, Title } from '@mantine/core';
+import { Group, Stack, Title, Text } from '@mantine/core';
 import { Photo } from '../../types/photo';
 import { User } from '@/types/user';
 import classes from './SinglePhoto.module.css';
@@ -15,6 +15,10 @@ interface SinglePhotoProps {
 }
 
 export default function SinglePhoto({ photo, user, albumPhotos, album }: SinglePhotoProps) {
+  if (!photo) {
+    return <Text>Sorry! We didn't find the photo.</Text>;
+  }
+
   return (
     <Stack className={classes.container} gap="xs">
       <Title className={classes.title} order={2}>
@@ -30,10 +34,10 @@ export default function SinglePhoto({ photo, user, albumPhotos, album }: SingleP
         />
         <Stack className={classes.linksContainer}>
           <Link href={`/albums/${photo.albumId}`}>View album</Link>
-          <Link href={`/users/${user.id}`}>View user</Link>
+          {user && <Link href={`/users/${user.id}`}>View user</Link>}
         </Stack>
       </Group>
-      <PhotoPreview photos={albumPhotos} album={album} />
+      {albumPhotos.length > 0 && <PhotoPreview photos={albumPhotos} album={album} />}
     </Stack>
   );
 }

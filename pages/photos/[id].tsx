@@ -5,7 +5,7 @@ import {
   getUserByPhotoId,
   getPhotosByAlbumId,
   getAlbumById,
-	getFirstPhotosFromAlbum,
+  getFirstPhotosFromAlbum,
 } from '../../api/photos';
 import { Photo } from '../../types/photo';
 import { User } from '../../types/user';
