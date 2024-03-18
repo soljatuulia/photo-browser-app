@@ -8,6 +8,7 @@ import { getPhotos, getPhotosByAlbumId } from '../../api/photos';
 import { Photo } from '../../types/photo';
 
 import classes from './PhotoGrid.module.css';
+import { useRouter } from 'next/router';
 
 interface PhotoGridProps {
   initialPhotos: Photo[];
@@ -16,43 +17,51 @@ interface PhotoGridProps {
 }
 
 export function PhotoGrid({ initialPhotos, albumId, album }: PhotoGridProps) {
-  const [currentPage, setCurrentPage] = useState(1);
+  const router = useRouter();
   const initialTotalPages = Math.ceil(initialPhotos.length / 12);
+
+  const [currentPage, setCurrentPage] = useState(Number(router.query.page) || 1);
   const [totalPages, setTotalPages] = useState(initialTotalPages);
   const [displayedPhotos, setDisplayedPhotos] = useState(
     Array.isArray(initialPhotos) ? initialPhotos : []
   );
 
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > totalPages) {
+      notifications.show({
+        title: 'Oops!',
+        color: 'red',
+        message: 'Invalid page number',
+      });
+      return;
+    }
+
+    setCurrentPage(page);
+  };
+
   const isMobile = useMediaQuery('(max-width: 768px)');
   const isTinyScreen = useMediaQuery('(max-width: 350px)');
-
   const cols = isTinyScreen ? 1 : isMobile ? 2 : 3;
 
   useEffect(() => {
     async function fetchPhotos() {
       try {
-        if (currentPage < 1 || currentPage > totalPages) {
-          notifications.show({
-            title: 'Oops!',
-            color: 'red',
-            message: 'Invalid page number',
-          });
-          return;
-        }
-
-        let photos: Photo[];
-        let pages: number;
+        let result;
         if (albumId) {
-          const result = await getPhotosByAlbumId(albumId, currentPage);
-          photos = result.photos;
-          pages = result.totalPages;
+          result = await getPhotosByAlbumId(albumId, currentPage);
         } else {
-          const result = await getPhotos(currentPage);
-          photos = result.photos;
-          pages = result.totalPages;
+          result = await getPhotos(currentPage);
         }
-        setDisplayedPhotos(photos);
-        setTotalPages(pages);
+        setDisplayedPhotos(result.photos);
+        setTotalPages(result.totalPages);
+        router.push(
+          {
+            pathname: router.pathname,
+            query: { ...router.query, page: currentPage },
+          },
+          undefined,
+          { scroll: false }
+        );
       } catch (error) {
         notifications.show({
           title: 'Oops!',
@@ -62,7 +71,7 @@ export function PhotoGrid({ initialPhotos, albumId, album }: PhotoGridProps) {
       }
     }
     fetchPhotos();
-  }, [currentPage, albumId, totalPages]);
+  }, [currentPage, albumId]);
 
   return (
     <div>
@@ -96,7 +105,7 @@ export function PhotoGrid({ initialPhotos, albumId, album }: PhotoGridProps) {
                 <Pagination
                   value={currentPage}
                   total={totalPages}
-                  onChange={setCurrentPage}
+                  onChange={handlePageChange}
                   size="md"
                   color="pink"
                   siblings={1}
