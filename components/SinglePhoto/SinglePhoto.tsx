@@ -15,10 +15,6 @@ interface SinglePhotoProps {
 }
 
 export default function SinglePhoto({ photo, user, albumPhotos, album }: SinglePhotoProps) {
-  if (!photo) {
-    return <Text>Sorry! No photo found.</Text>;
-  }
-
   const otherPhotos = albumPhotos.filter((albumPhoto) => albumPhoto.id !== photo.id);
 
   return (
@@ -26,12 +22,16 @@ export default function SinglePhoto({ photo, user, albumPhotos, album }: SingleP
       <Title className={classes.title} order={2}>
         {photo.title || 'Untitled'}
       </Title>
-      {user && <Link href={`/users/${user.id}`}>From user {user.id}</Link>}
+      {user && (
+        <Text>
+          From <Link href={`/users/${user.id}`}>User {user.id}</Link>
+        </Text>
+      )}
       <Group align="start">
         <Image
           src={photo.url}
           alt={photo.title}
-          className={classes.imgResponsive}
+          className={classes.singlePhoto}
           width={600}
           height={600}
         />

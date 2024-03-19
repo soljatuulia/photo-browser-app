@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Group, Pagination, SimpleGrid, Stack, Text, Title } from '@mantine/core';
+import { useRouter } from 'next/router';
+import { Group, Input, Loader, Pagination, SimpleGrid, Stack, Text, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { getPhotos, getPhotosByAlbumId } from '../../api/photos';
 import { Photo } from '../../types/photo';
 
 import classes from './PhotoGrid.module.css';
-import { useRouter } from 'next/router';
 
 interface PhotoGridProps {
   initialPhotos: Photo[];
@@ -25,6 +25,8 @@ export function PhotoGrid({ initialPhotos, albumId, album }: PhotoGridProps) {
   const [displayedPhotos, setDisplayedPhotos] = useState(
     Array.isArray(initialPhotos) ? initialPhotos : []
   );
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handlePageChange = (page: number) => {
     if (page < 1 || page > totalPages) {
@@ -45,6 +47,7 @@ export function PhotoGrid({ initialPhotos, albumId, album }: PhotoGridProps) {
 
   useEffect(() => {
     async function fetchPhotos() {
+      setIsLoading(true);
       try {
         let result;
         if (albumId) {
@@ -52,7 +55,12 @@ export function PhotoGrid({ initialPhotos, albumId, album }: PhotoGridProps) {
         } else {
           result = await getPhotos(currentPage);
         }
-        setDisplayedPhotos(result.photos);
+
+        const filteredPhotos = result.photos.filter((photo: Photo) =>
+          photo.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+        setDisplayedPhotos(filteredPhotos);
         setTotalPages(result.totalPages);
         router.push(
           {
@@ -69,21 +77,34 @@ export function PhotoGrid({ initialPhotos, albumId, album }: PhotoGridProps) {
           message: (error as Error).message,
         });
       }
+      setIsLoading(false);
     }
     fetchPhotos();
-  }, [currentPage, albumId]);
+  }, [currentPage, albumId, searchTerm]);
 
   return (
     <div>
       <Stack gap="lg" maw={500} className={classes.container}>
         {album ? (
           <Title order={2} className={classes.title}>
-            {album.title || 'Untitled'}
+            Explore photos from {album.title || 'Untitled'}
           </Title>
         ) : (
-          <Title order={2}>Browse all photos</Title>
+          <Title order={2}>Explore All Photos</Title>
         )}
-        {displayedPhotos.length > 0 ? (
+
+        <Input
+          className={classes.search}
+          placeholder="Search photos by name"
+          value={searchTerm}
+          onChange={(event) => setSearchTerm(event.currentTarget.value)}
+        />
+
+        {isLoading ? (
+          <div className={classes.loader}>
+            <Loader size="lg" type="bars" color="pink" />
+          </div>
+        ) : displayedPhotos.length > 0 ? (
           <>
             <SimpleGrid cols={cols} spacing={15}>
               {displayedPhotos.map((photo) => (
@@ -94,7 +115,7 @@ export function PhotoGrid({ initialPhotos, albumId, album }: PhotoGridProps) {
                       alt={photo.title}
                       width={150}
                       height={150}
-                      loading="lazy"
+                      priority
                     />
                   </Link>
                 </div>
