@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { Group, Input, Loader, Pagination, SimpleGrid, Stack, Text, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
+
 import { getPhotos, getPhotosByAlbumId } from '../../api/photos';
 import { Photo } from '../../types/photo';
 

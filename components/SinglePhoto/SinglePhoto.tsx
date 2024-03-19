@@ -1,11 +1,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Group, Stack, Title } from '@mantine/core';
+
 import { Photo } from '../../types/photo';
 import { User } from '@/types/user';
-import classes from './SinglePhoto.module.css';
 import PhotoPreview from '../PhotoPreview/PhotoPreview';
 import { Album } from '@/types/album';
+
+import classes from './SinglePhoto.module.css';
 
 interface SinglePhotoProps {
   photo: Photo;

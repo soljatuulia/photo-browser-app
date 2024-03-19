@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { SimpleGrid, Stack, Text, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+
 import { Photo } from '../../types/photo';
 import type { Album } from '@/types/album';
 

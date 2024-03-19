@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { Group, Stack, Title, Text } from '@mantine/core';
+
 import PhotoPreview from '../PhotoPreview/PhotoPreview';
 import UserInfo from '../UserInfo/UserInfo';
 import { Album } from '@/types/album';
