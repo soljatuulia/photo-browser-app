@@ -6,7 +6,7 @@
   text-align: left;
 
   @media (max-width: 768px) {
-    font-size: rem(50px);
+    font-size: rem(25px);
   }
 }
 

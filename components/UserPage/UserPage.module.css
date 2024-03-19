@@ -1,5 +1,13 @@
 .container {
+  display: flex;
   margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin-top: 0rem;
+    flex-direction: column-reverse;
+  }
 }
 
 .title {
@@ -7,5 +15,5 @@
 }
 
 .albums {
-	padding-right: 2rem;
+  padding-right: 2rem;
 }

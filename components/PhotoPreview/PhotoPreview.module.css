@@ -6,3 +6,9 @@
   margin-bottom: 2rem;
   text-align: right;
 }
+
+@media (max-width: 768px) {
+  .more {
+    text-align: left;
+  }
+}

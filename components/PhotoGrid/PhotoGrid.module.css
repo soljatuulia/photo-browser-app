@@ -1,7 +1,23 @@
 .container {
   margin-top: 2rem;
+  width: 30rem;
 }
 
 .title {
-	text-transform: capitalize;
+  text-transform: capitalize;
+}
+
+.search {
+  width: 100%;
+}
+
+@media screen and (max-width: 32rem) {
+  .container {
+    width: 100%;
+  }
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
 }
