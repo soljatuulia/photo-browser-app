@@ -18,9 +18,9 @@ export default function UserInfo({ totalPhotos, totalAlbums }: UserInfoProps) {
 
   return (
     <div className={classes.container}>
-      <Title order={4}>Fun facts about user</Title>
-      <p>Total Albums: {totalAlbums}</p>
-      <p>Total Photos: {totalPhotos}</p>
+      <Title order={4}>Some stats!</Title>
+      <p>Total photos: {totalPhotos}</p>
+      <p>Total albums: {totalAlbums}</p>
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { Group, Stack, Title, Text } from '@mantine/core';
 import PhotoPreview from '../PhotoPreview/PhotoPreview';
 import UserInfo from '../UserInfo/UserInfo';
@@ -12,6 +13,9 @@ interface UserPageProps {
 }
 
 export default function UserPage({ albums, totalPhotos, totalAlbums }: UserPageProps) {
+  const router = useRouter();
+  const { id } = router.query;
+
   if (!Array.isArray(albums)) {
     return <Text>Sorry! No valid albums data to display.</Text>;
   }
@@ -19,7 +23,7 @@ export default function UserPage({ albums, totalPhotos, totalAlbums }: UserPageP
   return (
     <>
       <Title order={2} className={classes.title}>
-        All albums from user
+        All Albums from User {id}
       </Title>
       <Group gap="xl" align="start" className={classes.container}>
         <Stack className={classes.albums}>
