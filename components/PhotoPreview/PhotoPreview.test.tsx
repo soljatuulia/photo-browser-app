@@ -3,6 +3,11 @@ import { render } from '@/test-utils';
 import PhotoPreview from './PhotoPreview';
 import { Photo } from '@/types/photo';
 
+jest.mock('next/link', () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => children,
+}));
+
 describe('PhotoPreview', () => {
   const mockPhotos: Photo[] = [
     {

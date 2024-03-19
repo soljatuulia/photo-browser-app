@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Group, Stack, Title, Text } from '@mantine/core';
+import { Group, Stack, Title } from '@mantine/core';
 import { Photo } from '../../types/photo';
 import { User } from '@/types/user';
 import classes from './SinglePhoto.module.css';
@@ -22,11 +22,7 @@ export default function SinglePhoto({ photo, user, albumPhotos, album }: SingleP
       <Title className={classes.title} order={2}>
         {photo.title || 'Untitled'}
       </Title>
-      {user && (
-        <Text>
-          From <Link href={`/users/${user.id}`}>User {user.id}</Link>
-        </Text>
-      )}
+      {user && <Link href={`/users/${user.id}`}>From User {user.id}</Link>}
       <Group align="start">
         <Image
           src={photo.url}

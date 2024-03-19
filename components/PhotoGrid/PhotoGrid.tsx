@@ -108,7 +108,7 @@ export function PhotoGrid({ initialPhotos, albumId, album }: PhotoGridProps) {
           <>
             <SimpleGrid cols={cols} spacing={15}>
               {displayedPhotos.map((photo) => (
-                <div key={photo.id}>
+                <div key={photo.id} data-testid="photo">
                   <Link href={`/photos/${photo.id}`}>
                     <Image
                       src={photo.thumbnailUrl}

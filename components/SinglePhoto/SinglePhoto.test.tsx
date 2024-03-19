@@ -146,7 +146,7 @@ describe('SinglePhoto', () => {
 
   test('renders link to user', () => {
     render(<SinglePhoto photo={mockPhoto} user={mockUser} albumPhotos={[]} album={mockAlbum} />);
-    const linkElement = screen.getByText(/From user 1/i);
+    const linkElement = screen.getByText(/From User 1/i);
     expect(linkElement).toBeInTheDocument();
   });
 

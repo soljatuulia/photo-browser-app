@@ -3,6 +3,22 @@ import { render } from '@/test-utils';
 import { PhotoGrid } from './PhotoGrid';
 import { Photo } from '@/types/photo';
 
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      route: '/',
+      pathname: '',
+      query: '',
+      asPath: '',
+    };
+  },
+}));
+
+jest.mock('next/image', () => ({
+  __esModule: true,
+  default: (props: any) => <img alt="" {...props} />,
+}));
+
 describe('PhotoGrid', () => {
   const mockPhotos: Photo[] = [
     {
@@ -112,15 +128,15 @@ describe('PhotoGrid', () => {
     },
   ];
 
-  test('renders the correct number of photos', () => {
+  test('renders the correct number of photos', async () => {
     render(<PhotoGrid initialPhotos={mockPhotos} />);
-    const images = screen.getAllByRole('img');
-    expect(images.length).toBe(mockPhotos.length);
+    const photos = await screen.findAllByTestId('photo');
+    expect(photos).toHaveLength(mockPhotos.length);
   });
 
-  test('renders "Sorry, no photos found!" when no photos are provided', () => {
+  test('renders "Sorry, no photos found!" when no photos are provided', async () => {
     render(<PhotoGrid initialPhotos={[]} />);
-    const messageElement = screen.getByText(/Sorry, no photos found!/i);
+    const messageElement = await screen.findByText(/Sorry, no photos found!/i);
     expect(messageElement).toBeInTheDocument();
   });
 });
