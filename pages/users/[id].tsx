@@ -39,7 +39,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const { id } = context.params as { id: string };
   const albums = await getUserAlbums(Number(id));
 
-  // Fetch the first few photos from each album
+  // Fetch the first photos from each album
   const albumsWithPhotos = await Promise.all(
     albums.map(async (album: AlbumType) => {
       const photos = await getFirstPhotosFromAlbum(album.id);
