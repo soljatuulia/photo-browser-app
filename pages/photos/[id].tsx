@@ -8,7 +8,7 @@ import SinglePhoto from '../../components/SinglePhoto/SinglePhoto';
 import { Album } from '@/types/album';
 
 export default function PhotoPage({
-  photo,
+  photo = { albumId: 0, id: 0, title: '', url: '', thumbnailUrl: '' },
   user,
   albumPhotos = [],
   album = { userId: 0, id: 0, title: '' },
