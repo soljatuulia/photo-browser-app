@@ -71,13 +71,7 @@ export function PhotoGrid({ initialPhotos, albumId, album }: PhotoGridProps) {
           undefined,
           { scroll: false }
         );
-      } catch (error) {
-        notifications.show({
-          title: 'Oops!',
-          color: 'red',
-          message: (error as Error).message,
-        });
-      }
+      } catch (error) {}
       setIsLoading(false);
     }
     fetchPhotos();
