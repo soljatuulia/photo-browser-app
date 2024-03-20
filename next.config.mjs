@@ -11,6 +11,7 @@ export const nextConfig = {
   basePath: '/photo-browser-app',
   images: {
     unoptimized: true,
+    domains: ['via.placeholder.com'],
   },
 };
 
@@ -18,8 +19,5 @@ export default withBundleAnalyzer({
   ...nextConfig,
   eslint: {
     ignoreDuringBuilds: true,
-  },
-  images: {
-    domains: ['via.placeholder.com'],
   },
 });
