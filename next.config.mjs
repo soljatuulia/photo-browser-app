@@ -9,6 +9,9 @@ export const nextConfig = {
   output: 'export',
   reactStrictMode: true,
   basePath: '/photo-browser-app',
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default withBundleAnalyzer({
