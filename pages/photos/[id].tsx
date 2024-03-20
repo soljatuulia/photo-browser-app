@@ -10,7 +10,7 @@ import { Album } from '@/types/album';
 export default function PhotoPage({
   photo,
   user,
-  albumPhotos,
+  albumPhotos = [],
   album,
 }: {
   photo: Photo;

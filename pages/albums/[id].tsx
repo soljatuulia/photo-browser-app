@@ -5,7 +5,7 @@ import { Photo } from '@/types/photo';
 import { PhotoGrid } from '@/components/PhotoGrid/PhotoGrid';
 
 export default function AlbumPage({
-  photos,
+  photos = [],
   album,
   albumId,
 }: {
