@@ -11,7 +11,7 @@ export default function PhotoPage({
   photo,
   user,
   albumPhotos = [],
-  album,
+  album = { userId: 0, id: 0, title: '' },
 }: {
   photo: Photo;
   user: User;
