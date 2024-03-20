@@ -71,7 +71,9 @@ export function PhotoGrid({ initialPhotos, albumId, album }: PhotoGridProps) {
           undefined,
           { scroll: false }
         );
-      } catch (error) {}
+      } catch (error) {
+        console.error('Error fetching photos:', error);
+      }
       setIsLoading(false);
     }
     fetchPhotos();
