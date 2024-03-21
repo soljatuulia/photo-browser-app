@@ -2,7 +2,7 @@ import { fetchData } from './api';
 
 export const getPhotos = async (page: number = 1, limit: number = 12) => {
   const response = await fetch(
-    `http://jsonplaceholder.typicode.com/photos?_page=${page}&_limit=${limit}`
+    `https://jsonplaceholder.typicode.com/photos?_page=${page}&_limit=${limit}`
   );
   if (!response.ok) {
     throw new Error('Failed to fetch photos');
@@ -31,7 +31,7 @@ export const getPhotosByAlbumId = async (id: string, page: number = 1, limit: nu
 };
 
 export const getPhotoById = async (id: number) => {
-  const photo = await fetchData(`http://jsonplaceholder.typicode.com/photos/${id}`);
+  const photo = await fetchData(`https://jsonplaceholder.typicode.com/photos/${id}`);
   return photo;
 };
 

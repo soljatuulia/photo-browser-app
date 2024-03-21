@@ -2,7 +2,7 @@ import { fetchData } from './api';
 
 export const getUserByPhotoId = async (photoId: number) => {
   // Get the photo
-  const photo = await fetchData(`http://jsonplaceholder.typicode.com/photos/${photoId}`);
+  const photo = await fetchData(`https://jsonplaceholder.typicode.com/photos/${photoId}`);
 
   // Get the album of the photo
   const album = await fetchData(`https://jsonplaceholder.typicode.com/albums/${photo.albumId}`);
