@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="shortcut icon" href="/camera-favicon.ico" />
         <style>
           @import
-          url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+          url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
         </style>
       </Head>
       <Navbar />
