@@ -44,11 +44,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       notFound: true,
     };
   }
+  try {
+    const photo = await getPhotoById(Number(params.id));
+    const user = await getUserByPhotoId(Number(params.id));
+    const albumPhotos = await getFirstPhotosFromAlbum(photo.albumId);
+    const album = await getAlbumById(photo.albumId);
 
-  const photo = await getPhotoById(Number(params.id));
-  const user = await getUserByPhotoId(Number(params.id));
-  const albumPhotos = await getFirstPhotosFromAlbum(photo.albumId);
-  const album = await getAlbumById(photo.albumId);
-
-  return { props: { photo, user, albumPhotos, album } };
+    return { props: { photo, user, albumPhotos, album } };
+  } catch (error) {
+    console.error('Failed to fetch data for photo', params?.id, error);
+    return { notFound: true };
+  }
 };
