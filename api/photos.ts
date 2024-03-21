@@ -1,15 +1,18 @@
 import { fetchData } from './api';
 
-export const getPhotos = async (page: number = 1, limit: number = 12) => {
+export const getPhotos = async (page: number = 1, limit: number = 12, all: boolean = false) => {
   const response = await fetch(
-    `https://jsonplaceholder.typicode.com/photos?_page=${page}&_limit=${limit}`
+    `https://jsonplaceholder.typicode.com/photos${all ? '' : `?_page=${page}&_limit=${limit}`}`
   );
+
   if (!response.ok) {
     throw new Error('Failed to fetch photos');
   }
+
   const totalCount = parseInt(response.headers.get('X-Total-Count') || '0', 10);
   const totalPages = Math.ceil(totalCount / limit);
   const photos = await response.json();
+
   return { photos, totalPages };
 };
 
