@@ -8,14 +8,16 @@ export default function AlbumPage({
   photos = [],
   album,
   albumId,
+  totalPages
 }: {
   photos: Photo[];
   album: { title: string };
   albumId: string;
+  totalPages: number;
 }) {
   return (
     <div>
-      <PhotoGrid initialPhotos={photos} albumId={albumId} album={album} />
+      <PhotoGrid initialPhotos={photos} albumId={albumId} album={album} totalPages={totalPages} />
     </div>
   );
 }
@@ -31,7 +33,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { id } = context.params as { id: string };
-  const photos = await getPhotosByAlbumId(id);
+  const { photos, totalPages } = await getPhotosByAlbumId(id);
 
   // Fetch all albums
   const allAlbums = await getAlbums();
@@ -43,5 +45,5 @@ export const getStaticProps: GetStaticProps = async (context) => {
     return { notFound: true };
   }
 
-  return { props: { photos, album, albumId: id } };
+  return { props: { photos, album, albumId: id, totalPages } };
 };

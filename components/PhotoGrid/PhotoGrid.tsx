@@ -15,14 +15,13 @@ interface PhotoGridProps {
   initialPhotos: Photo[];
   albumId?: string;
   album?: { title: string };
+  totalPages: number;
 }
 
-export function PhotoGrid({ initialPhotos, albumId, album }: PhotoGridProps) {
+export function PhotoGrid({ initialPhotos, albumId, album, totalPages }: PhotoGridProps) {
   const router = useRouter();
-  const initialTotalPages = Math.ceil(initialPhotos.length / 12);
 
   const [currentPage, setCurrentPage] = useState(Number(router.query.page) || 1);
-  const [totalPages, setTotalPages] = useState(initialTotalPages);
   const [displayedPhotos, setDisplayedPhotos] = useState(
     Array.isArray(initialPhotos) ? initialPhotos : []
   );
@@ -46,38 +45,38 @@ export function PhotoGrid({ initialPhotos, albumId, album }: PhotoGridProps) {
   const isTinyScreen = useMediaQuery('(max-width: 350px)');
   const cols = isTinyScreen ? 1 : isMobile ? 2 : 3;
 
-  useEffect(() => {
-    async function fetchPhotos() {
-      setIsLoading(true);
-      try {
-        let result;
-        if (albumId) {
-          result = await getPhotosByAlbumId(albumId, currentPage);
-        } else {
-          result = await getPhotos(currentPage);
-        }
-
-        const filteredPhotos = result.photos.filter((photo: Photo) =>
-          photo.title.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-
-        setDisplayedPhotos(filteredPhotos);
-        setTotalPages(result.totalPages);
-        router.push(
-          {
-            pathname: router.pathname,
-            query: { ...router.query, page: currentPage },
-          },
-          undefined,
-          { scroll: false }
-        );
-      } catch (error) {
-        console.error('Error fetching photos:', error);
+  const fetchPhotos = async (page: number) => {
+    setIsLoading(true);
+    try {
+      let result;
+      if (albumId) {
+        result = await getPhotosByAlbumId(albumId, page);
+      } else {
+        result = await getPhotos(page);
       }
-      setIsLoading(false);
+
+      const filteredPhotos = result.photos.filter((photo: Photo) =>
+        photo.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+
+      setDisplayedPhotos(filteredPhotos);
+      router.push(
+        {
+          pathname: router.pathname,
+          query: { ...router.query, page },
+        },
+        undefined,
+        { scroll: false }
+      );
+    } catch (error) {
+      console.error('Error fetching photos:', error);
     }
-    fetchPhotos();
-  }, [currentPage, albumId, searchTerm]);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchPhotos(currentPage);
+  }, [currentPage, searchTerm]);
 
   return (
     <div>
