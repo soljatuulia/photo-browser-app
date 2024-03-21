@@ -8,7 +8,7 @@ export default function AlbumPage({
   photos = [],
   album,
   albumId,
-  totalPages
+  totalPages,
 }: {
   photos: Photo[];
   album: { title: string };
