@@ -1,6 +1,7 @@
 .container {
   margin-top: 2rem;
   width: 30rem;
+  min-width: 21rem;
 }
 
 .title {
