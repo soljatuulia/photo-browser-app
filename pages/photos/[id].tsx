@@ -27,7 +27,7 @@ export default function PhotoPage({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    const { photos } = await getPhotos();
+    const { photos } = await getPhotos(1, 12, true);
     const paths = photos.map((photo: Photo) => ({
       params: { id: photo.id.toString() },
     }));
