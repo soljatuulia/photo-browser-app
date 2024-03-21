@@ -9,6 +9,7 @@ export const nextConfig = {
   output: 'export',
   reactStrictMode: true,
   basePath: '/photo-browser-app',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/photo-browser-app' : '',
   images: {
     unoptimized: true,
     domains: ['via.placeholder.com'],
