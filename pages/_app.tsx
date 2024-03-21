@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <Navbar />
       <div className="content-wrapper">
-        <Notifications />
+        <Notifications position="top-right" zIndex={1000} />
         <Component {...pageProps} />
       </div>
     </MantineProvider>

@@ -69,7 +69,11 @@ export function PhotoGrid({ initialPhotos, albumId, album, totalPages }: PhotoGr
         { scroll: false }
       );
     } catch (error) {
-      console.error('Error fetching photos:', error);
+      notifications.show({
+        title: 'Oops!',
+        color: 'red',
+        message: 'Failed to fetch photos',
+      });
     }
     setIsLoading(false);
   };
@@ -123,7 +127,7 @@ export function PhotoGrid({ initialPhotos, albumId, album, totalPages }: PhotoGr
                   value={currentPage}
                   total={totalPages}
                   onChange={handlePageChange}
-                  size="md"
+                  size="sm"
                   color="pink"
                   siblings={1}
                   boundaries={1}

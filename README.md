@@ -30,6 +30,13 @@ Before you begin, make sure:
 
 1. Clone the repository.
 2. First run `npm install` to install dependencies, then `npm run dev` to start the development server.
+4. Comment out the following lines in the next.config.mjs file:
+```javascript
+output: 'export',
+reactStrictMode: true,
+basePath: '/photo-browser-app',
+assetPrefix: process.env.NODE_ENV === 'production' ? '/photo-browser-app' : '',
+```
 3. Access the application in your web browser at http://localhost:3000.
 
 ## :mag: Running tests
@@ -48,7 +55,8 @@ A live version of the application can be found [here](https://soljatuulia.github
 
 Given more time, I would definitely improve the following:
 
-- Improve the UX/UI. I decided to not spend too much time on the design, and the project does not showcase my abilities with e.g. CSS.
-- Implement proper testing. As of now, the test coverage is very minimal. My goal was to incorporate a handful of tests.
+- UX/UI. I decided to not spend too much time on the design, and the project does not showcase my abilities with e.g. CSS.
+- Implement proper testing. As of now, the test coverage is minimal at best. My goal was just to have tests incorporated.
 - Improve error handling.
 - Migrate from Next.js pages router to app router. I am more familiar with the pages router and did not want to risk losing time to study the app router.
+- And lots more!
